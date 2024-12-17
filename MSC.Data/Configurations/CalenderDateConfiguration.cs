@@ -23,9 +23,9 @@ namespace MSC.Data.Configurations
             builder.Property(x => x.NumberOfMonth);
             builder.Property(x => x.IsActive);
             builder.Property(x => x.IsDelete);
-            builder.Property(x => x.CreationDateTime).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.CreationDateTime);
             builder.Property(x => x.CreatorID);
-            builder.Property(x => x.ModifierDateTime).IsRequired(false);
+            builder.Property(x => x.ModifierDateTime);
             builder.Property(x => x.ModifierID);
         }
     }

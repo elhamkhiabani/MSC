@@ -23,6 +23,8 @@ namespace MSC.Data.DatabseContext
         }
 
         public DbSet<Salary> Salaries { get; set; }
+        public DbSet<CalenderDate> CalenderDates { get; set; }
+
 
     }
 }

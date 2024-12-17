@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using MSC.Core.Mapper;
 using MSC.Data.DatabseContext;
 using System.Configuration;
@@ -12,10 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MyMapper));
-//builder.Services.AddDbContext<DatabaseContext>(options =>
-//{
-//    options.UseSqlServer()
-//});
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSCConnectionString"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Handlers\Intefaces\" />
+    <Folder Include="IoC\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
