@@ -1,4 +1,5 @@
-﻿using MSC.Core.Presentations.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using MSC.Core.Presentations.Base;
 using MSC.Data.DatabseContext;
 using MSC.Domain.Interfaces;
 using System;
@@ -9,37 +10,66 @@ using System.Threading.Tasks;
 
 namespace MSC.Core.CRUD
 {
-    public class CRUD<T> : ICRUD<T> where T : class 
+    public class CRUD<T> : ICRUD<T> where T : class, IEntity
     {
         private readonly DatabaseContext _context;
+        private readonly DbSet<T> _dbSet;
         public CRUD(DatabaseContext context)
         {
             _context = context;
+            _dbSet = context.Set<T>();
         }
 
-        public MessageViewModel Delete(int id)
+        public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbSet.ToList();
         }
 
-        public ResultViewModel<T> GetAll()
+        public void Add(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(entity);
         }
 
-        public ResultViewModel<T> GetByID(int id)
+        public bool Delete(int id, bool hardDelete=false)
         {
-            throw new NotImplementedException();
+            var entity = GetByID(id);
+            if (entity != null)
+            {
+                if (hardDelete == true)
+                {
+                    _dbSet.Remove(entity);
+                }
+                else
+                {
+                    entity.IsDelete = true;
+                    entity.IsActive = false;
+                    Update(entity);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        public T GetByID(int id)
+        {
+            return _dbSet.Find(id);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
-        public MessageViewModel Update(T entity)
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            entity.ModifierDateTime = DateTime.Now;
+            _dbSet.Update(entity);
         }
     }
 }

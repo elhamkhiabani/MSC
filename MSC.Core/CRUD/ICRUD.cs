@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace MSC.Core.CRUD
 {
-    public interface ICRUD<T>  where T : class
+    public interface ICRUD<T>  where T : class, IEntity
     {
+        void Add(T entity);
+
         void Save();
 
-        ResultViewModel<T> GetByID(int id);
+        T GetByID(int id);
 
-        ResultViewModel<T> GetAll();
+        List<T> GetAll();
 
-        MessageViewModel Update(T entity);
+        void Update(T entity);
 
-        MessageViewModel Delete(int id);
+        bool Delete(int id, bool hardDelete = false);
 
 
     }
