@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MSC.Data\MSC.Data.csproj" />
     <ProjectReference Include="..\MSC.Domain\MSC.Domain.csproj" />
   </ItemGroup>
 

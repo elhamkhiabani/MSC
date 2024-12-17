@@ -1,5 +1,7 @@
 
 using MSC.Core.Mapper;
+using MSC.Data.DatabseContext;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MyMapper));
+//builder.Services.AddDbContext<DatabaseContext>(options =>
+//{
+//    options.UseSqlServer()
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
