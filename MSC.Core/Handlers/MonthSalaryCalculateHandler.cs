@@ -67,8 +67,9 @@ namespace MSC.Core.Handlers
 
                 OverTimePolices.Presentation.EntityViewModel salaryCal = new OverTimePolices.Presentation.EntityViewModel
                 {
-                    AttractAmount = data.Result.Allowance,
-                    BaseAmount = data.Result.BasicSalary
+                    Allowance = data.Result.Allowance,
+                    BasicSalary = data.Result.BasicSalary,
+                    Transportation = data.Result.Transportation
                 };
                 data.Result.OverTimeCalculatorMethod = nameof(overTime);
                 data.Result.SalaryAmount = overTime.OverTimeCalculator(salaryCal).Result;
