@@ -20,9 +20,9 @@ namespace MSC.Core.CRUD
             _dbSet = context.Set<T>();
         }
 
-        public List<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return _dbSet.ToList();
+            return _dbSet.Where(x => x.IsDelete == false);
         }
 
         public void Add(T entity)
@@ -45,25 +45,25 @@ namespace MSC.Core.CRUD
             return true;
         }
 
-    
 
 
 
-    public T GetByID(int id)
-    {
-        return _dbSet.Find(id);
+
+        public T GetByID(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        public void Update(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            entity.ModifierDateTime = DateTime.Now;
+            _dbSet.Update(entity);
+        }
     }
-
-    public void Save()
-    {
-        _context.SaveChanges();
-    }
-
-    public void Update(T entity)
-    {
-        _context.Entry(entity).State = EntityState.Modified;
-        entity.ModifierDateTime = DateTime.Now;
-        _dbSet.Update(entity);
-    }
-}
 }

@@ -29,6 +29,8 @@ namespace MSC.Core.Repositories
             {
                 entity.CreatorID = creatorId;
                 entity.CreationDateTime = DateTime.Now;
+                entity.ModifierID = creatorId;
+                entity.ModifierDateTime = DateTime.Now;
                 _crud.Add(entity);
                 _crud.Save();
                 result = new MessageViewModel
@@ -54,7 +56,7 @@ namespace MSC.Core.Repositories
         }
 
 
-        public MessageViewModel Delete(int id, int creatorId, bool hardDelete = false)
+        public MessageViewModel Delete(int id, int creatorId=0, bool hardDelete = false)
         {
             MessageViewModel result = new MessageViewModel();
             try
@@ -174,7 +176,7 @@ namespace MSC.Core.Repositories
                     return result;
                 }
 
-                _crud.Update(exist);
+                _crud.Update(entity);
                 result = new MessageViewModel
                 {
                     ID = exist.ID,
@@ -197,13 +199,21 @@ namespace MSC.Core.Repositories
             }
         }
 
-        public ResultViewModel<V> GetAll()
+        public ResultViewModel<V> GetAll(Expression<Func<T, bool>>? predicate)
         {
             ResultViewModel<V> result = new ResultViewModel<V>();
 
             try
             {
-
+                var list = _crud.GetAll().Where(predicate);
+                result.List = _map.Map<List<V>>(list);
+                result.Message = new MessageViewModel
+                {
+                    ID = 0,
+                    Message = "GetAll Success",
+                    Status = "Success",
+                    Value = ""
+                };
                 return result;
             }
             catch (Exception ex)

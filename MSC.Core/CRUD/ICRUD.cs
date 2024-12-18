@@ -16,7 +16,7 @@ namespace MSC.Core.CRUD
 
         T GetByID(int id);
 
-        List<T> GetAll();
+        IQueryable<T> GetAll();
 
         void Update(T entity);
 
