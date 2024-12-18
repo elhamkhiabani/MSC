@@ -20,7 +20,7 @@ namespace MSC.Core.CRUD
 
         void Update(T entity);
 
-        bool Delete(int id, bool hardDelete = false);
+        bool Remove(T entity, bool hardDelete = false);
 
 
     }

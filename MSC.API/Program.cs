@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using MSC.Core.IoC;
 using MSC.Core.Mapper;
 using MSC.Data.DatabseContext;
 using System.Configuration;
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSCConnectionString"));
 });
+
+builder.Services.Injector();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,4 +35,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
 app.Run();
+
+

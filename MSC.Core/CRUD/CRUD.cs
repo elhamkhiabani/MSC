@@ -30,46 +30,40 @@ namespace MSC.Core.CRUD
             _dbSet.Add(entity);
         }
 
-        public bool Delete(int id, bool hardDelete=false)
+        public bool Remove(T entity, bool hardDelete = false)
         {
-            var entity = GetByID(id);
-            if (entity != null)
+            if (hardDelete == true)
             {
-                if (hardDelete == true)
-                {
-                    _dbSet.Remove(entity);
-                }
-                else
-                {
-                    entity.IsDelete = true;
-                    entity.IsActive = false;
-                    Update(entity);
-                }
-                return true;
+                _dbSet.Remove(entity);
             }
             else
             {
-                return false;
+                entity.IsDelete = true;
+                entity.IsActive = false;
+                Update(entity);
             }
+            return true;
         }
 
+    
 
 
-        public T GetByID(int id)
-        {
-            return _dbSet.Find(id);
-        }
 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
-
-        public void Update(T entity)
-        {
-            _context.Entry(entity).State = EntityState.Modified;
-            entity.ModifierDateTime = DateTime.Now;
-            _dbSet.Update(entity);
-        }
+    public T GetByID(int id)
+    {
+        return _dbSet.Find(id);
     }
+
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
+
+    public void Update(T entity)
+    {
+        _context.Entry(entity).State = EntityState.Modified;
+        entity.ModifierDateTime = DateTime.Now;
+        _dbSet.Update(entity);
+    }
+}
 }
