@@ -1,4 +1,5 @@
 ﻿using MSC.Core.Presentations;
+using MSC.Core.Presentations.Base;
 using MSC.Core.Repositories;
 using MSC.Domain.Models;
 using System;
@@ -11,5 +12,8 @@ namespace MSC.Core.Services.Interfaces
 {
     public interface ISalaryService : IRepository<Salary, SalaryViewModel>
     {
+        ResultViewModel<SalaryViewModel> SelectByID(int id);
+
+        ResultViewModel<SalaryViewModel> SelectAll();
     }
 }

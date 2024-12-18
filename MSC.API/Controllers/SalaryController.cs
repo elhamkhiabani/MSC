@@ -43,7 +43,7 @@ namespace MSC.API.Controllers
         [AllowAnonymous]
         public ResultViewModel<SalaryViewModel> get(int id)
         {
-            var result = _service.GetByID(id);
+            var result = _service.SelectByID(id);
             return result;
         }
 
@@ -57,13 +57,13 @@ namespace MSC.API.Controllers
             return result;
         }
 
-        //[HttpGet]
-        //[Route("salary/getAll/{filter}")]
-        //[AllowAnonymous]
-        //public ResultViewModel<SalaryViewModel> getAll(string filter)
-        //{
-        //    var result = _service.GetAll();
-        //    return result;
-        //}
+        [HttpGet]
+        [Route("salary/selectAll/{filter}")]
+        [AllowAnonymous]
+        public ResultViewModel<SalaryViewModel> selectAll(string filter)
+        {
+            var result = _service.SelectAll();
+            return result;
+        }
     }
 }

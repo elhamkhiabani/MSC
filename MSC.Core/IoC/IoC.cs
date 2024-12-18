@@ -5,6 +5,7 @@ using MSC.Core.Handlers.Intefaces;
 using MSC.Core.Repositories;
 using MSC.Core.Services;
 using MSC.Core.Services.Interfaces;
+using MSC.Widget.Dapper;
 using MSC.Widget.InputProcessor;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace MSC.Core.IoC
             services.AddScoped(typeof(IRepository<,>),typeof(Repository<,>));
             services.AddScoped<ISalaryService,SalaryService>();
             services.AddScoped(typeof(IInputProcessor<>),typeof(InputProcessor<>));
+            services.AddScoped(typeof(IDapper<>), typeof(Dapper<>));
 
             services.AddScoped<IMonthSalaryCalculateHandler, MonthSalaryCalculateHandler>();
 
