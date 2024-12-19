@@ -31,6 +31,15 @@ namespace MSC.API.Controllers
             return result;
         }
 
+        [HttpPost]
+        [Route("salary/removeForMonth")]
+        [AllowAnonymous]
+        public MessageViewModel removeForMonth([FromBody] FilterViewModel entity)
+        {
+            var result = _handler.DeleteSalaryForMonth(entity);
+            return result;
+        }
+
         [HttpPut]
         [Route("salary/update")]
         [AllowAnonymous]

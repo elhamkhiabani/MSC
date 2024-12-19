@@ -32,6 +32,11 @@ namespace MSC.Core.Services
             _dapper = dapper;
         }
 
+        public void SaveChange()
+        {
+            _salaryCrud.Save();
+        }
+
         public  MessageViewModel AddSalary(Salary entity,int creatorID=0)
         {
             MessageViewModel result = new MessageViewModel();

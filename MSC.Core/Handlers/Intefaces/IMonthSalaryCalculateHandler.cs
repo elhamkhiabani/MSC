@@ -11,5 +11,6 @@ namespace MSC.Core.Handlers.Intefaces
     public interface IMonthSalaryCalculateHandler
     {
         MessageViewModel Add(RequestSalaryViewModel entity, string dataType);
+        MessageViewModel DeleteSalaryForMonth(FilterViewModel entity, int creatorId = 0, bool hardDelete = false);
     }
 }

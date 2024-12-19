@@ -4,6 +4,7 @@ using MSC.Data.DatabseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MSC.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241219224857_IDFr")]
+    partial class IDFr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,7 @@ namespace MSC.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("CalenderDates", (string)null);
+                    b.ToTable("CalenderDates");
                 });
 
             modelBuilder.Entity("MSC.Domain.Models.Salary", b =>
@@ -141,20 +143,7 @@ namespace MSC.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CalenderDateID");
-
                     b.ToTable("Salaries", (string)null);
-                });
-
-            modelBuilder.Entity("MSC.Domain.Models.Salary", b =>
-                {
-                    b.HasOne("MSC.Domain.Models.CalenderDate", "CalenderDate")
-                        .WithMany()
-                        .HasForeignKey("CalenderDateID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("CalenderDate");
                 });
 #pragma warning restore 612, 618
         }

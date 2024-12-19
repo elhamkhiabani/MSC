@@ -15,6 +15,8 @@ namespace MSC.Domain.Models
         }
         public int ID { get; set; }
 
+        public int CalenderDateID { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -45,5 +47,7 @@ namespace MSC.Domain.Models
         public int ModifierID { get; set; }
 
         public DateTime ModifierDateTime { get; set; }
+
+        public virtual CalenderDate CalenderDate { get; set; }
     }
 }

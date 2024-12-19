@@ -17,5 +17,6 @@ namespace MSC.Core.Services.Interfaces
         MessageViewModel AddSalary(Salary entity,int creatorID=0);
 
         ResultViewModel<SalaryViewModel> SelectAll(FilterViewModel entity);
+        void SaveChange();
     }
 }

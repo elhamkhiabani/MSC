@@ -9,6 +9,10 @@ namespace MSC.Domain.Models
 {
     public class CalenderDate : IEntity
     {
+        public CalenderDate()
+        {
+
+        }
         public int ID { get; set; }
 
         public string Date { get; set; }

@@ -22,6 +22,8 @@ namespace MSC.Core.IoC
             services.AddScoped(typeof(ICRUD<>),typeof(CRUD<>));
             services.AddScoped(typeof(IRepository<,>),typeof(Repository<,>));
             services.AddScoped<ISalaryService,SalaryService>();
+            services.AddScoped<ICalenderDateService, CalenderDateService>();
+
             services.AddScoped(typeof(IInputProcessor<>),typeof(InputProcessor<>));
             services.AddScoped(typeof(IDapper<>), typeof(Dapper<>));
 

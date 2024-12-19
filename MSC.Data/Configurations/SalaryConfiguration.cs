@@ -32,6 +32,11 @@ namespace MSC.Data.Configurations
             builder.Property(x => x.CreatorID);
             builder.Property(x => x.ModifierDateTime);
             builder.Property(x => x.ModifierID);
+
+            builder.HasOne(x=>x.CalenderDate)
+                .WithMany()
+                .HasForeignKey(x=>x.CalenderDateID)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
