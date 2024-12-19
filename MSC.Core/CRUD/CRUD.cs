@@ -55,7 +55,7 @@ namespace MSC.Core.CRUD
 
         public T GetByID(int id)
         {
-            return _dbSet.Find(id);
+            return _dbSet.Where(x=>x.IsActive==true && x.ID==id).FirstOrDefault();
         }
 
         public void Save()

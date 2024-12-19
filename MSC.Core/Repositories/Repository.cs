@@ -177,6 +177,7 @@ namespace MSC.Core.Repositories
                 }
 
                 _crud.Update(entity);
+                _crud.Save();
                 result = new MessageViewModel
                 {
                     ID = exist.ID,
