@@ -12,10 +12,10 @@ namespace MSC.Core.Services.Interfaces
 {
     public interface ISalaryService : IRepository<Salary, SalaryViewModel>
     {
-        ResultViewModel<SalaryViewModel> SelectByID(int id);
+        ResultViewModel<SalaryViewModel> SelectByFullName(FilterViewModel entity);
 
-        MessageViewModel AddOrUpdate(Salary entity,int creatorID=0);
+        MessageViewModel AddSalary(Salary entity,int creatorID=0);
 
-        ResultViewModel<SalaryViewModel> SelectAll();
+        ResultViewModel<SalaryViewModel> SelectAll(FilterViewModel entity);
     }
 }

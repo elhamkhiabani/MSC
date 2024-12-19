@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dapper;
 using MSC.Core.CRUD;
 using MSC.Core.Presentations;
 using MSC.Core.Presentations.Base;
@@ -31,7 +32,7 @@ namespace MSC.Core.Services
             _dapper = dapper;
         }
 
-        public  MessageViewModel AddOrUpdate(Salary entity,int creatorID=0)
+        public  MessageViewModel AddSalary(Salary entity,int creatorID=0)
         {
             MessageViewModel result = new MessageViewModel();
             try
@@ -67,14 +68,17 @@ namespace MSC.Core.Services
             }
         }
 
-        public ResultViewModel<SalaryViewModel> SelectByID(int id)
+        public ResultViewModel<SalaryViewModel> SelectByFullName(FilterViewModel entity)
         {
             ResultViewModel<SalaryViewModel> result = new ResultViewModel<SalaryViewModel>();
             try
             {
-                Parameter parameter = new Parameter();
-                //parameter.GEt();
-                var res = _dapper.CallProcdure("GetAllSalary", parameter);
+                DynamicParameters parameter = new DynamicParameters();
+                parameter.Add("@FirstName",entity.FirstName);
+                parameter.Add("@LastName", entity.LastName);
+                parameter.Add("@FromDate", entity.FromDate);
+
+                var res = _dapper.CallProcdure<Salary>("GetMonthlyByFullname", parameter);
                 if (res == null)
                 {
                     result.Message = new MessageViewModel
@@ -86,11 +90,11 @@ namespace MSC.Core.Services
                     };
                     return result;
                 }
-                result.Result = _map.Map<SalaryViewModel>(res);
+                result.List = _map.Map<List<SalaryViewModel>>(res.List);
                 result.Message = new MessageViewModel
                 {
                     ID = 1,
-                    Message = "SelectByID Success",
+                    Message = "SelectByFullName Success",
                     Status = "Success",
                     Value = ""
                 };
@@ -109,14 +113,19 @@ namespace MSC.Core.Services
             }
         }
 
-        public ResultViewModel<SalaryViewModel> SelectAll()
+        public ResultViewModel<SalaryViewModel> SelectAll(FilterViewModel entity)
         {
             ResultViewModel<SalaryViewModel> result = new ResultViewModel<SalaryViewModel>();
             try
             {
-                Parameter parameter = new Parameter();
-                //parameter.GetCustomAttributes("FromDate", from);
-                var res = _dapper.CallProcdure("GetAllSalary", parameter);
+                DynamicParameters parameter = new DynamicParameters();
+                parameter.Add("@FirstName", entity.FirstName);
+                parameter.Add("@LastName", entity.LastName);
+                parameter.Add("@FromDate", entity.FromDate);
+                parameter.Add("@ToDate", entity.ToDate);
+                parameter.Add("@PageNumber", entity.PageNumber);
+                parameter.Add("@PageSize", entity.PageSize);
+                var res = _dapper.CallProcdure<Salary>("GetAllSalary", parameter);
                 if (res==null)
                 {
                     result.Message = new MessageViewModel
@@ -128,7 +137,7 @@ namespace MSC.Core.Services
                     };
                     return result;
                 }
-                result.List = _map.Map<List<SalaryViewModel>>(res);
+                result.List = _map.Map<List<SalaryViewModel>>(res.List);
                 result.Message = new MessageViewModel
                 {
                     ID = 1,

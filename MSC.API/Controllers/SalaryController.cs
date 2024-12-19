@@ -21,14 +21,6 @@ namespace MSC.API.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        [Route("{dataType}/salary/add")]
-        [AllowAnonymous]
-        public MessageViewModel add([FromBody] RequestSalaryViewModel entity,string dataType)
-        {
-            var result = _handler.Add(entity,dataType);
-            return result;
-        }
 
         [HttpGet]
         [Route("salary/remove/{id}")]
@@ -39,16 +31,6 @@ namespace MSC.API.Controllers
             return result;
         }
 
-        [HttpGet]
-        [Route("salary/get/{id}")]
-        [AllowAnonymous]
-        public ResultViewModel<SalaryViewModel> get(int id)
-        {
-            var result = _service.SelectByID(id);
-            return result;
-        }
-
-
         [HttpPut]
         [Route("salary/update")]
         [AllowAnonymous]
@@ -58,12 +40,44 @@ namespace MSC.API.Controllers
             return result;
         }
 
-        [HttpGet]
-        [Route("salary/selectAll/{filter}")]
+
+        [HttpPost]
+        [Route("{dataType}/salary/add")]
         [AllowAnonymous]
-        public ResultViewModel<SalaryViewModel> selectAll(string filter)
+        public MessageViewModel add([FromBody] RequestSalaryViewModel entity, string dataType)
         {
-            var result = _service.SelectAll();
+            var result = _handler.Add(entity, dataType);
+            return result;
+        }
+
+     
+
+        [HttpGet]
+        [Route("salary/get/{id}")]
+        [AllowAnonymous]
+        public ResultViewModel<SalaryViewModel> get(int id)
+        {
+            var result = _service.GetByID(id);
+            return result;
+        }
+
+        [HttpPost]
+        [Route("salary/getMonthlyByFullname")]
+        [AllowAnonymous]
+        public ResultViewModel<SalaryViewModel> getMonthlyByFullname([FromBody] FilterViewModel entity)
+        {
+            var result = _service.SelectByFullName(entity);
+            return result;
+        }
+
+
+      
+        [HttpPost]
+        [Route("salary/selectAll")]
+        [AllowAnonymous]
+        public ResultViewModel<SalaryViewModel> selectAll([FromBody] FilterViewModel entity)
+        {
+            var result = _service.SelectAll(entity);
             return result;
         }
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -13,20 +14,24 @@ namespace MSC.Widget.Dapper
 {
     public class Dapper<T> : IDapper<T> where T : class
     {
-        public Dapper()
-        {
+        private readonly IConfiguration _configuration;
 
+        public Dapper(IConfiguration configuration)
+        {
+            _configuration = configuration;
         }
 
-        public ResultViewModel<T> CallProcdure(string procName, Parameter parameter, string connection = "MSCConnectionString")
+        public ResultViewModel<T> CallProcdure<T>(string procName, DynamicParameters parameter, string connection = "MSCConnectionString")
         {
             ResultViewModel<T> result = new ResultViewModel<T>();
             try
             {
-                using (IDbConnection dbConnection = new SqlConnection(connection))
+                string connectionString =  _configuration.GetConnectionString(connection);
+
+                using (IDbConnection dbConnection = new SqlConnection(connectionString))
                 {
                     dbConnection.Open();
-                    result.List = dbConnection.QuerySingleOrDefault<List<T>>(procName, parameter, commandType: CommandType.StoredProcedure);
+                    result.List = dbConnection.Query<T>(procName, parameter, commandType: CommandType.StoredProcedure).ToList();
                     result.Message = new MessageViewModel
                     {
                         ID = 1,

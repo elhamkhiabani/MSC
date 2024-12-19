@@ -78,7 +78,7 @@ namespace MSC.Core.Handlers
                 DateTime date = DateTime.Now;
                 salary.Date = date.ToString("yyyy/MM/dd", new CultureInfo("fa-IR")); ;
                 salary.Time = date.ToShortTimeString();
-                var saveMessage = _salaryService.AddOrUpdate(salary);
+                var saveMessage = _salaryService.AddSalary(salary);
                 if (saveMessage.Status=="Success")
                 {
                     result = saveMessage;

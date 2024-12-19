@@ -1,4 +1,5 @@
-﻿using MSC.Widget.Presentations;
+﻿using Dapper;
+using MSC.Widget.Presentations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace MSC.Widget.Dapper
 {
     public interface IDapper<T>  where T : class
     {
-        ResultViewModel<T> CallProcdure(string procName, Parameter parameter, string connection = "MSCConnectionString");
+        ResultViewModel<T> CallProcdure<T>(string procName, DynamicParameters parameter, string connection = "MSCConnectionString");
     }
 }
