@@ -9,6 +9,7 @@ using MSC.Widget.Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,42 @@ namespace MSC.Core.Services
             _salaryCrud = salaryCrud;
             _map = map;
             _dapper = dapper;
+        }
+
+        public  MessageViewModel AddOrUpdate(Salary entity,int creatorID=0)
+        {
+            MessageViewModel result = new MessageViewModel();
+            try
+            {
+                Expression<Func<Salary, bool>> expression= x=>x.FirstName == entity.FirstName && x.LastName == entity.LastName && x.Date==entity.Date;
+                var exist = GetAll(true,expression);
+                if (exist.List.Count()>0)
+                {
+                    result = new MessageViewModel
+                    {
+                        ID = -1000,
+                        Message = "Duplicate",
+                        Status = "Error",
+                        Value = ""
+                    };
+                    return result;
+                }
+                entity.IsActive = true;
+                var message = Add(entity);
+                result = message;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result = new MessageViewModel
+                {
+                    ID = -1000,
+                    Message = ex.Message,
+                    Status = "Error",
+                    Value = ""
+                };
+                return result;
+            }
         }
 
         public ResultViewModel<SalaryViewModel> SelectByID(int id)

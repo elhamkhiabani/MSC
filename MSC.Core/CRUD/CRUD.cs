@@ -20,9 +20,13 @@ namespace MSC.Core.CRUD
             _dbSet = context.Set<T>();
         }
 
-        public IQueryable<T> GetAll()
+        public IQueryable<T> GetAll(bool isActive)
         {
-            return _dbSet.Where(x => x.IsDelete == false);
+            if (isActive == null)
+            {
+                return _dbSet.Where(x =>  x.IsDelete == false);
+            }
+            return _dbSet.Where(x =>x.IsActive==isActive && x.IsDelete == false);
         }
 
         public void Add(T entity)

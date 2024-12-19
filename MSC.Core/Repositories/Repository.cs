@@ -199,13 +199,14 @@ namespace MSC.Core.Repositories
             }
         }
 
-        public ResultViewModel<V> GetAll(Expression<Func<T, bool>>? predicate)
+        public ResultViewModel<V> GetAll(bool isActive,Expression<Func<T, bool>>? predicate)
         {
             ResultViewModel<V> result = new ResultViewModel<V>();
 
             try
             {
-                var list = _crud.GetAll().Where(predicate);
+
+                var list = _crud.GetAll(isActive).Where(predicate);
                 result.List = _map.Map<List<V>>(list);
                 result.Message = new MessageViewModel
                 {

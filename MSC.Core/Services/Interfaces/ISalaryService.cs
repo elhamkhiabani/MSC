@@ -14,6 +14,8 @@ namespace MSC.Core.Services.Interfaces
     {
         ResultViewModel<SalaryViewModel> SelectByID(int id);
 
+        MessageViewModel AddOrUpdate(Salary entity,int creatorID=0);
+
         ResultViewModel<SalaryViewModel> SelectAll();
     }
 }

@@ -14,6 +14,9 @@ namespace MSC.Core.Mapper
         public MyMapper()
         {
             CreateMap<Salary, SalaryViewModel>();
+
+            CreateMap<SalaryViewModel,Salary>();
+
             CreateMap<CalenderDate, CalenderDateViewModel>();
         }
     }

@@ -6,6 +6,7 @@ using MSC.Core.Presentations;
 using MSC.Core.Presentations.Base;
 using MSC.Core.Services.Interfaces;
 using MSC.Domain.Models;
+using System.Text.Json;
 
 namespace MSC.API.Controllers
 {

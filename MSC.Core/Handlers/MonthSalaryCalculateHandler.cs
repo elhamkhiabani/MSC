@@ -10,6 +10,7 @@ using OverTimePolices.Services;
 using OverTimePolices.Services.Interfces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,10 +72,13 @@ namespace MSC.Core.Handlers
                     BasicSalary = data.Result.BasicSalary,
                     Transportation = data.Result.Transportation
                 };
-                data.Result.OverTimeCalculatorMethod = nameof(overTime);
+                data.Result.OverTimeCalculatorMethod = entity.OverTimeCalculator;
                 data.Result.SalaryAmount = overTime.OverTimeCalculator(salaryCal).Result;
                 var salary = _map.Map<Salary>(data.Result);
-                var saveMessage = _salaryService.Add(salary);
+                DateTime date = DateTime.Now;
+                salary.Date = date.ToString("yyyy/MM/dd", new CultureInfo("fa-IR")); ;
+                salary.Time = date.ToShortTimeString();
+                var saveMessage = _salaryService.AddOrUpdate(salary);
                 if (saveMessage.Status=="Success")
                 {
                     result = saveMessage;
@@ -86,7 +90,7 @@ namespace MSC.Core.Handlers
                         ID = -1000,
                         Message = "Error In Save Salary",
                         Status = "Error",
-                        Value = ""
+                        Value = saveMessage.Message
                     };
                 }
 
