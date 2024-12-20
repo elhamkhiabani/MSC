@@ -4,6 +4,7 @@ using MSC.Core.IoC;
 using MSC.Core.Mapper;
 using MSC.Data.DatabseContext;
 using System.Configuration;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+
+var modelProject = "MSC.Core.xml";
+var modelProjectPath = Path.Combine(AppContext.BaseDirectory, modelProject);
+builder.Services.AddSwaggerGen(c =>
+{
+    c.IncludeXmlComments(modelProjectPath);
+    c.IncludeXmlComments(xmlPath);
+});
 builder.Services.AddAutoMapper(typeof(MyMapper));
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
