@@ -82,9 +82,9 @@ namespace MSC.Test
 
 
             var configuration = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory()) // Or specify your path
-    .AddJsonFile("appsettings.json")
-    .Build();
+                        .SetBasePath(Directory.GetCurrentDirectory()) 
+                        .AddJsonFile("appsettings.json")
+                        .Build();
 
             services.AddSingleton<IConfiguration>(configuration);
             services.AddScoped<IDapper<Salary>, Dapper<Salary>>(provider =>
