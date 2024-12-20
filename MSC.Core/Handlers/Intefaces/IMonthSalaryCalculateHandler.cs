@@ -12,5 +12,6 @@ namespace MSC.Core.Handlers.Intefaces
     {
         MessageViewModel Add(RequestSalaryViewModel entity, string dataType);
         MessageViewModel DeleteSalaryForMonth(FilterViewModel entity, int creatorId = 0, bool hardDelete = false);
+        MessageViewModel UpdateForMonth(UpdateViewModel entity, int creatorId = 0);
     }
 }

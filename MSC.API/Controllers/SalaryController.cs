@@ -21,6 +21,15 @@ namespace MSC.API.Controllers
             _service = service;
         }
 
+        [HttpPost]
+        [Route("salary/update")]
+        [AllowAnonymous]
+        public MessageViewModel update([FromBody] UpdateViewModel entity)
+        {
+            var result = _handler.UpdateForMonth(entity);
+            return result;
+        }
+
 
         [HttpGet]
         [Route("salary/remove/{id}")]
@@ -40,14 +49,7 @@ namespace MSC.API.Controllers
             return result;
         }
 
-        [HttpPut]
-        [Route("salary/update")]
-        [AllowAnonymous]
-        public MessageViewModel update([FromBody] Salary entity)
-        {
-            var result = _service.Update(entity);
-            return result;
-        }
+       
 
 
         [HttpPost]

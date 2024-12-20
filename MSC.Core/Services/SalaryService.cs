@@ -42,7 +42,7 @@ namespace MSC.Core.Services
             MessageViewModel result = new MessageViewModel();
             try
             {
-                Expression<Func<Salary, bool>> expression= x=>x.FirstName == entity.FirstName && x.LastName == entity.LastName && x.Date==entity.Date;
+                Expression<Func<Salary, bool>> expression= x=>x.FirstName == entity.FirstName && x.LastName == entity.LastName && x.Date==entity.Date && x.IsDelete==false;
                 var exist = GetAll(true,expression);
                 if (exist.List.Count()>0)
                 {
