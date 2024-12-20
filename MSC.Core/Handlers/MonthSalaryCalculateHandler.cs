@@ -358,7 +358,8 @@ namespace MSC.Core.Handlers
                 };
                 data.Result.OverTimeCalculatorMethod = entity.OverTimeCalculator;
                 data.Result.SalaryAmount = overTime.OverTimeCalculator(salaryCal).Result;
-                var salary = _map.Map<Salary>(data.Result);
+                Salary salary=new Salary();
+                salary = _map.Map<Salary>(data.Result);
                 DateTime date = DateTime.Now;
                 salary.Date = date.ToString("yyyy/MM/dd", new CultureInfo("fa-IR")); ;
                 salary.CalenderDateID = Convert.ToInt32(salary.Date.Replace("/", ""));
