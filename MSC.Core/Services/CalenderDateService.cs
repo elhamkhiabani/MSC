@@ -20,22 +20,22 @@ namespace MSC.Core.Services
     public class CalenderDateService : Repository<CalenderDate, CalenderDateViewModel>,ICalenderDateService
     {
         private readonly IMapper _map;
-        private readonly ICRUD<CalenderDate> _calenderCrud;
+        //private readonly ICRUD<CalenderDate> _calenderCrud;
         private readonly IDapper<CalenderDate> _dapper;
-
+        private readonly IServiceProvider _service;
         // سازنده
-        public CalenderDateService(ICRUD<CalenderDate> calenderCrud, IMapper map, IDapper<CalenderDate> dapper)
-            : base(calenderCrud, map) // ارسال وابستگی‌ها به سازنده پدر (Repository)
+        public CalenderDateService(IServiceProvider service, IMapper map, IDapper<CalenderDate> dapper) : base(service)
+
         {
-            _calenderCrud = calenderCrud;
+            _service = service;
             _map = map;
             _dapper = dapper;
         }
 
-        public void SaveChange()
-        {
-            _calenderCrud.Save();
-        }
+        //public void SaveChange()
+        //{
+        //    _calenderCrud.Save();
+        //}
       
     }
 }

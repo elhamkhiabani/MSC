@@ -22,11 +22,19 @@ namespace MSC.Core.CRUD
 
         public IQueryable<T> GetAll(bool isActive)
         {
-            if (isActive == null)
+            try
             {
-                return _dbSet.Where(x =>  x.IsDelete == false);
+                if (isActive == null)
+                {
+                    return _dbSet.Where(x => x.IsDelete == false);
+                }
+                return _dbSet.Where(x => x.IsActive == isActive && x.IsDelete == false);
             }
-            return _dbSet.Where(x =>x.IsActive==isActive && x.IsDelete == false);
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public void Add(T entity)

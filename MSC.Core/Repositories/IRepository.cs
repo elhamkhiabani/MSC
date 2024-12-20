@@ -20,5 +20,6 @@ namespace MSC.Core.Repositories
         MessageViewModel Update(T entity);
 
         ResultViewModel<V> GetAll(bool isActive, Expression<Func<T, bool>>? predicate);
+        void SaveChange();
     }
 }

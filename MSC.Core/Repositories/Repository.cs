@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using MSC.Core.CRUD;
 using MSC.Core.Presentations.Base;
 using MSC.Domain.Interfaces;
@@ -15,11 +16,18 @@ namespace MSC.Core.Repositories
     {
         private readonly ICRUD<T> _crud;
         private readonly IMapper _map;
+        private readonly IServiceProvider _service;
 
-        public Repository(ICRUD<T> crud, IMapper map)
+        public Repository(IServiceProvider service)
         {
-            _crud = crud;
-            _map = map;
+            _service = service;
+            _crud = _service.GetRequiredService<ICRUD<T>>(); 
+            _map = _service.GetRequiredService<IMapper>();
+        }
+
+        public void SaveChange()
+        {
+            _crud.Save();
         }
 
         public MessageViewModel Add(T entity, int creatorId = 0)

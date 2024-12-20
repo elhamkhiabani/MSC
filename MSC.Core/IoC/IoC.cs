@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using MSC.Core.CRUD;
 using MSC.Core.Handlers;
 using MSC.Core.Handlers.Intefaces;
@@ -26,7 +27,7 @@ namespace MSC.Core.IoC
 
             services.AddScoped(typeof(IInputProcessor<>),typeof(InputProcessor<>));
             services.AddScoped(typeof(IDapper<>), typeof(Dapper<>));
-
+            //services.AddScoped<IMapper>();
             services.AddScoped<IMonthSalaryCalculateHandler, MonthSalaryCalculateHandler>();
 
         }

@@ -12,6 +12,6 @@ namespace MSC.Core.Services.Interfaces
 {
     public interface ICalenderDateService  : IRepository<CalenderDate, CalenderDateViewModel>
     {
-        void SaveChange();
+        //void SaveChange();
     }
 }

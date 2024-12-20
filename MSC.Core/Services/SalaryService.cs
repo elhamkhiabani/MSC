@@ -20,22 +20,21 @@ namespace MSC.Core.Services
     public class SalaryService : Repository<Salary, SalaryViewModel>, ISalaryService 
     {
         private readonly IMapper _map;
-        private readonly ICRUD<Salary> _salaryCrud;
         private readonly IDapper<Salary> _dapper;
+        private readonly IServiceProvider _service;
 
         // سازنده
-        public SalaryService(ICRUD<Salary> salaryCrud, IMapper map, IDapper<Salary> dapper)
-            : base(salaryCrud, map) // ارسال وابستگی‌ها به سازنده پدر (Repository)
+        public SalaryService(IServiceProvider service, IMapper map, IDapper<Salary> dapper) :base(service)
         {
-            _salaryCrud = salaryCrud;
+            _service = service;
             _map = map;
             _dapper = dapper;
         }
 
-        public void SaveChange()
-        {
-            _salaryCrud.Save();
-        }
+        //public void SaveChange()
+        //{
+        //    _salaryCrud.Save();
+        //}
 
         public  MessageViewModel AddSalary(Salary entity,int creatorID=0)
         {
