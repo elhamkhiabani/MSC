@@ -10,6 +10,8 @@ namespace MSC.Core.Presentations
     {
         public int ID { get; set; }
 
+        public int  CalenderDateID { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

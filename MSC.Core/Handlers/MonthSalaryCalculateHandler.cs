@@ -38,9 +38,10 @@ namespace MSC.Core.Handlers
             MessageViewModel result = new MessageViewModel();
             try
             {
-                var date = Convert.ToInt32(entity.FromDate.Replace("/", ""));
-                var calender = _clenderService.GetByID(date).Result;
-                var salaries = _salaryService.GetAll(true, x => x.FirstName == entity.FirstName && x.LastName == entity.LastName && Convert.ToInt32(x.Date.Substring(4, 2)) == calender.NumberOfMonth);
+                //var date = Convert.ToInt32(entity.FromDate.Replace("/", ""));
+                //var calender = _clenderService.GetByID(date).Result;
+                var calender = _clenderService.GetAll(true, x => x.Month == entity.FromDate).List.FirstOrDefault();
+                var salaries = _salaryService.GetAll(true, x => x.FirstName == entity.FirstName && x.LastName == entity.LastName && Convert.ToInt32(x.Date.Substring(5, 2)) == calender.NumberOfMonth);
                 if (salaries.List.Count == 0)
                 {
                     result = new MessageViewModel
