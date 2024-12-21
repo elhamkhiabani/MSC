@@ -25,6 +25,7 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 builder.Services.AddAutoMapper(typeof(MyMapper));
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSCConnectionString"));

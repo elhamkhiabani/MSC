@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  msc.api:
+    image: ${DOCKER_REGISTRY-}mscapi
+    build:
+      context: .
+      dockerfile: MSC.API/Dockerfile

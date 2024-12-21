@@ -8,10 +8,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["MSC.API/MSC.API.csproj", "MSC.API/"]
-COPY ["MSC.Core/MSC.Core.csproj", "MSC.Core/"]
-COPY ["MSC.Widget/MSC.Widget.csproj", "MSC.Widget/"]
-COPY ["MSC.Domain/MSC.Domain.csproj", "MSC.Domain/"]
-COPY ["MSC.Data/MSC.Data.csproj", "MSC.Data/"]
 RUN dotnet restore "MSC.API/MSC.API.csproj"
 COPY . .
 WORKDIR "/src/MSC.API"
